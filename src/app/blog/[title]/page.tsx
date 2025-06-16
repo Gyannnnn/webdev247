@@ -67,15 +67,13 @@ interface BlogResponse {
   blog: Blog;
 }
 
-type Params = Promise<{ title: string }>;
-
-export default async function BlogPost(props: { params: Params }) {
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ title: string }>;
+}) {
   try {
-    const params = await props.params;
-    const Blogtitle = decodeURIComponent(params.title);
-    console.log(Blogtitle);
-
-    // Fetch blog data
+    const Blogtitle = (await params).title;
     let blog;
     try {
       const res = await axios.get<BlogResponse>(
