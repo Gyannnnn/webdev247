@@ -1,4 +1,4 @@
-import { BlogCard } from "@/components/BlogCard"
+
 
 // Mock data for demonstration
 const categoryPosts = {
@@ -70,17 +70,15 @@ const categoryPosts = {
   }
 } as const
 
-interface Props {
-  params: {
-    slug: keyof typeof categoryPosts
-  }
-}
+type Params = Promise<{slug:string}>
 
-export default async function CategoryPage({ params }: Props) {
-  const slug = await params.slug
-  const category = categoryPosts[slug as keyof typeof categoryPosts]
+export default async function CategoryPage(props:{params:Params}) {
+ const params = await props.params
+ const slug = params.slug
+ console.log(slug)
+ console.log(categoryPosts)
 
-  if (!category) {
+  
     return (
       <main className="min-h-screen py-12">
         <div className="container max-w-4xl mx-auto px-6">
@@ -91,24 +89,24 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </main>
     )
-  }
 
-  return (
-    <main className="min-h-screen py-12">
-      <div className="container max-w-4xl mx-auto px-6">
-        <header className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">{category.name}</h1>
-          <p className="text-xl text-muted-foreground">
-            {category.description}
-          </p>
-        </header>
 
-        <div className="grid grid-cols-1 gap-8">
-          {category.posts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
-          ))}
-        </div>
-      </div>
-    </main>
-  )
+  // return (
+  //   <main className="min-h-screen py-12">
+  //     <div className="container max-w-4xl mx-auto px-6">
+  //       <header className="mb-12">
+  //         <h1 className="text-4xl font-bold mb-4">{category.name}</h1>
+  //         <p className="text-xl text-muted-foreground">
+  //           {category.description}
+  //         </p>
+  //       </header>
+
+  //       <div className="grid grid-cols-1 gap-8">
+  //         {category.posts.map((post) => (
+  //           <BlogCard key={post.slug} post={post} />
+  //         ))}
+  //       </div>
+  //     </div>
+  //   </main>
+  // )
 } 

@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { Menu } from "lucide-react"
-import * as Sheet from "@radix-ui/react-dialog"
-import { Button } from "./ui/button"
+import * as React from "react";
+import Link from "next/link";
+import { Menu } from "lucide-react";
+import * as Sheet from "@radix-ui/react-dialog";
+import { Button } from "./ui/button";
 
 const categories = [
-  { name: "React", slug: "react" },
-  { name: "Next.js", slug: "nextjs" },
+  { name: "Frontend", slug: "fe" },
   { name: "Backend", slug: "backend" },
   { name: "Coding Tools", slug: "tools" },
-  { name: "Coding Tips", slug: "tips" },
-  { name: "Tech News", slug: "news" },
-]
+  { name: "Coding Guide", slug: "guide" },
+  { name: "Tech Update", slug: "news" },
+];
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center max-sm:justify-between">
-        <div className="mr-4 flex items-center justify-center ">
+      <div className="flex h-14 max-w-screen-2xl items-center max-sm:justify-between px-2">
+        <div className="mr-4 flex items-center justify-between sm:px-10  w-full ">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-600 text-transparent bg-clip-text">TechBlog</span>
+            <span className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-600 text-transparent bg-clip-text">
+              TechBlog
+            </span>
           </Link>
           <div className="hidden md:flex space-x-6">
             {categories.map((category) => (
@@ -64,5 +65,5 @@ export function Navbar() {
         </Sheet.Root>
       </div>
     </nav>
-  )
+  );
 }

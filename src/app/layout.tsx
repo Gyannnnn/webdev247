@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Toaster } from "@/components/ui/toaster";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased flex flex-col`}>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased flex flex-col overflow-x-hidden`}>
         <Navbar />
         <main className="flex-1">
           {children}
         </main>
         <Footer />
-        <Toaster />
+       
       </body>
     </html>
   );

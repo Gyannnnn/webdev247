@@ -30,7 +30,7 @@ export default function PublishPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // In a real app, this would submit to an API
-    console.log("Form submitted:", formData)
+    
     alert("Blog post created! (Mock submission)")
   }
 

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Github, Twitter, Linkedin } from "lucide-react"
+
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { FaGithub ,FaLinkedin } from "react-icons/fa";
@@ -37,7 +37,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="w-full border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-6 py-12">
+      <div className="container mx-auto px-6 pt-12 pb-4 ">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand and Description */}
           <div className="space-y-4">

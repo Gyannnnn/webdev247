@@ -1,7 +1,9 @@
-import { blogs } from "@/data/blogs"
 import { BlogCard } from "@/components/BlogCard"
+import { getLiveBlogs } from "@/lib/blogs/blogs"
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const blogData = await getLiveBlogs()
+  
   return (
     <main className="container py-6 lg:py-10">
       <div className="space-y-6">
@@ -12,21 +14,10 @@ export default function BlogPage() {
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {blogs.map((blog) => (
+          {blogData.liveBlogs.map((blog) => (
             <BlogCard
-              key={blog.slug}
-              post={{
-                title: blog.title,
-                description: blog.excerpt,
-                category: blog.category,
-                publishDate: new Date(blog.date),
-                slug: blog.slug,
-                author: {
-                  name: blog.author.name,
-                  avatar: blog.author.avatar,
-                  id: blog.author.name.toLowerCase().replace(/\s+/g, "-"), // mock id
-                },
-              }}
+              key={blog.blogTitle}
+              post={blog}
             />
           ))}
         </div>
