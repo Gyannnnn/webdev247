@@ -1,13 +1,14 @@
-
-"use server"
+"use server";
 
 import { Client} from "@notionhq/client"
 import { NotionAPI } from "notion-client";
 
 
+
+const NOTION_INTEGRATION_SECRET = process.env.NOTION_INTEGRATION_SECRET
 export async function getNotionClient() {
   return new Client({
-    auth:process.env.NOTION_INTEGRATION_SECRET!
+    auth:NOTION_INTEGRATION_SECRET
   })
 }
 
