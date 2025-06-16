@@ -74,7 +74,8 @@ type Params = Promise<{title:string}>
 export default async function BlogPost(props:{params:Params}) {
   try {
     const params = await props.params
-    const Blogtitle = params.title
+    const Blogtitle = decodeURIComponent(params.title)
+    console.log(Blogtitle)
 
     // Fetch blog data
     const res = await axios.get<BlogResponse>(
