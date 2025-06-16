@@ -12,7 +12,6 @@ import { NotionRenderer } from "@/lib/plugin/plugin";
 
 import { getAuthor } from "@/lib/author";
 
-
 // Mock data for demonstration
 const blogPost = {
   comments: [
@@ -68,31 +67,34 @@ interface BlogResponse {
   blog: Blog;
 }
 
-type Params = Promise<{title:string}>
+type Params = Promise<{ title: string }>;
 
-
-export default async function BlogPost(props:{params:Params}) {
+export default async function BlogPost(props: { params: Params }) {
   try {
-    const params = await props.params
-    const Blogtitle = decodeURIComponent(params.title)
-    console.log(Blogtitle)
+    const params = await props.params;
+    const Blogtitle = decodeURIComponent(params.title);
+    console.log(Blogtitle);
 
     // Fetch blog data
-    const res = await axios.get<BlogResponse>(
-      `https://webdev247-backend.vercel.app/api/v1/blogs/title/${Blogtitle}`
-    );
-
-    if (res.status !== 200 || !res.data?.blog) {
+    let blog;
+    try {
+      const res = await axios.get<BlogResponse>(
+        `https://webdev247-backend.vercel.app/api/v1/blogs/title/${Blogtitle}`
+      );
+      if (res.status !== 200 || !res.data?.blog) return notFound();
+      blog = res.data.blog;
+    } catch (err) {
+      console.error("Axios fetch failed:", err);
       return notFound();
     }
 
-    const { blog } = res.data;  
-    
-
     // Fetch Notion data
-    const recordMap = await getBlogByTitle(blog.blogNotionId);
-    
-    if (!recordMap) {
+    let recordMap;
+    try {
+      recordMap = await getBlogByTitle(blog.blogNotionId);
+      if (!recordMap) return notFound();
+    } catch (err) {
+      console.error("Failed to fetch from Notion:", err);
       return notFound();
     }
 
@@ -105,8 +107,6 @@ export default async function BlogPost(props:{params:Params}) {
     if (!authorData) {
       return <div>Nu;;</div>;
     }
-    
-
 
     const publishedDate = new Date(blog.blogDate);
 
@@ -139,8 +139,6 @@ export default async function BlogPost(props:{params:Params}) {
                 darkMode={true}
               />
             </div>
-
-            
 
             {/* Interactions */}
             <div className="flex items-center space-x-4 mb-8 border-t border-b py-4">
