@@ -188,7 +188,7 @@ export default async function BlogPost({
               <div className="flex items-start space-x-4">
                 <div className="relative h-12 w-12 overflow-hidden rounded-full">
                   <Image
-                    src={authorData.authorAvatar || "/default-avatar.png"}
+                    src="https://res.cloudinary.com/dlm8mel1x/image/upload/v1750238773/me21_qfuy2u.jpg"
                     alt={blog.blogAuthor}
                     fill
                     className="object-cover"
