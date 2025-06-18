@@ -129,14 +129,15 @@ export default async function BlogPost({
             </header>
 
             {/* Content */}
-            <div className="prose  dark:prose-invert max-w-none mb-12">
-              {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
+            {recordMap ? (
               <NotionRenderer
                 recordMap={recordMap}
                 fullPage={false}
                 darkMode={true}
               />
-            </div>
+            ) : (
+              <p>Error loading blog content.</p>
+            )}
 
             {/* Interactions */}
             <div className="flex items-center space-x-4 mb-8 border-t border-b py-4">
