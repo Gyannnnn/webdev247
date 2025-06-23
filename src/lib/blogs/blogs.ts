@@ -35,10 +35,14 @@ interface blogData {
 }
 
 export async function getLiveBlogs() {
-  const res = await axios.get<blogData>(
-    "https://webdev247-backend.vercel.app/api/v1/blogs/live"
-  );
-  const data = res.data;
-
-  return data;
+  try {
+    const res = await axios.get<blogData>(
+      "https://webdev247-backend.vercel.app/api/v1/blogs/live"
+    );
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch live blogs:", error);
+    return { message: "Failed to fetch blogs", liveBlogs: [] };
+  }
 }

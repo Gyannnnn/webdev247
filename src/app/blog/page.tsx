@@ -3,6 +3,7 @@ import { getLiveBlogs } from "@/lib/blogs/blogs"
 
 export default async function BlogPage() {
   const blogData = await getLiveBlogs()
+  const blogs = Array.isArray(blogData.liveBlogs) ? blogData.liveBlogs : []
   
   return (
     <main className="container py-6 lg:py-10">
@@ -13,14 +14,20 @@ export default async function BlogPage() {
             Latest insights, updates, and stories from our team.
           </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {blogData.liveBlogs.map((blog) => (
-            <BlogCard
-              key={blog.blogTitle}
-              post={blog}
-            />
-          ))}
-        </div>
+        {blogs.length === 0 ? (
+          <div className="text-center text-red-500 py-10">
+            No blog posts available at the moment. Please try again later.
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog.blogTitle}
+                post={blog}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )

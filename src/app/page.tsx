@@ -36,6 +36,7 @@ const features = [
 
 export default async function Home() {
   const blogData = await getLiveBlogs();
+  const blogs = Array.isArray(blogData.liveBlogs) ? blogData.liveBlogs : [];
   
 
   return (
@@ -116,11 +117,17 @@ export default async function Home() {
               </Link>
             </Button>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {blogData.liveBlogs.map((post) => (
-              <BlogCard key={post.blogId} post={post} />
-            ))}
-          </div>
+          {blogs.length === 0 ? (
+            <div className="text-center text-red-500 py-10">
+              No blog posts available at the moment. Please try again later.
+            </div>
+          ) : (
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {blogs.map((post) => (
+                <BlogCard key={post.blogId} post={post} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
