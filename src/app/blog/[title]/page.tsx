@@ -90,10 +90,20 @@ export default async function BlogPost({
     let recordMap;
     try {
       recordMap = await getBlogByTitle(blog.blogNotionId);
-      if (!recordMap) return notFound();
+      if (!recordMap) {
+        return (
+          <div className="text-center text-red-500 py-10">
+            Error loading blog content. Please try again later.
+          </div>
+        );
+      }
     } catch (err) {
       console.error("Failed to fetch from Notion:", err);
-      return notFound();
+      return (
+        <div className="text-center text-red-500 py-10">
+          Error loading blog content. Please try again later.
+        </div>
+      );
     }
 
     // const blogData = dataBlocks.results as BlockObjectResponse[];

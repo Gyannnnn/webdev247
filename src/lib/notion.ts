@@ -19,3 +19,4 @@ export async function getBlogByTitle(blogNotionId: string) {
   const recordMap = await notion1.getPage(blogNotionId);
   return recordMap;
 }
+
